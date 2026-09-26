@@ -1,0 +1,39 @@
+name: Validate issue 1125
+on:
+  push:
+    branches: [validation/fpp-20260926]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          path: validation
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: sylvesterkaczmarek/fpp
+          ref: 72057cebf84582c10939696c24a7e0a59b431881
+          fetch-depth: 2
+          path: fpp
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: nasa/fprime
+          ref: 0d60d5a4fb6d5567d8f513a401c49b6db4e0c51a
+          path: fprime
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Install pinned sbt launcher
+        run: curl -fLsS https://repo.maven.apache.org/maven2/org/scala-sbt/sbt-launch/1.10.11/sbt-launch-1.10.11.jar -o sbt-launch.jar
+      - name: Test submitted source and original regression
+        run: python3 -u validation/ci/validation-1125/verify.py
+      - name: Retain validation logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: issue-1125-validation
+          path: validation-logs
