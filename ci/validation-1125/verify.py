@@ -22,7 +22,7 @@ def run(name, args, cwd, expect=0):
 
 launcher = root / "sbt-launch.jar"
 assert hashlib.sha256(launcher.read_bytes()).hexdigest() == "e988d533a020e5b60ec22c3b5df4cd3e3df465f4fdc3951c63036e21483978e4"
-sbt = ["java", "-Xmx3G", "-Dsbt.supershell=false", "-Dsbt.log.noformat=true", "-jar", str(launcher)]
+sbt = ["java", "-Xmx3G", "-Xss8M", "-Dsbt.supershell=false", "-Dsbt.log.noformat=true", "-jar", str(launcher)]
 built = run("scala-and-assembly", sbt + ["test", "assembly"], src / "compiler")
 assert "succeeded 689, failed 0" in built
 bin_dir = src / "compiler/bin"
