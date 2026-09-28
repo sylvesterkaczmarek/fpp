@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: sylvesterkaczmarek/fpp
-          ref: 8f7433bf0f7e6b072ca616947f1e69c962036827
+          ref: 74f8b97fc3abbe2ec44076c3128063a1e0bdf8b8
           fetch-depth: 2
           path: fpp
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
