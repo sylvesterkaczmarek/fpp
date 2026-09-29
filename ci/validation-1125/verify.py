@@ -58,4 +58,4 @@ finally:
 restored = run("restored-cpp-regression", ["./check"], case)
 assert restored.count("variable_flags=") == 8
 run("clean-source", ["git", "diff", "--exit-code"], src)
-print("689 Scala tests, 140 C++ generator cases, full topology compile checks, and the before/after regression verified.", flush=True)
+print("689 Scala tests, 139 C++ generator cases, full topology compile checks, and the before/after regression verified.", flush=True)
