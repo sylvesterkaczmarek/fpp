@@ -5,8 +5,9 @@ root = Path.cwd()
 src = root / "fpp"
 logs = root / "validation-logs"
 logs.mkdir(exist_ok=True)
-base = "695e2a8dc544e3d52aaf612631abe604dcbe36b3"
+base = "60526e35efeeedef584d8f40db0bac8864f98f26"
 paths = ["compiler/lib/src/main/scala/codegen/CppWriter/TopologyCppWriter/TopConfigObjects.scala",
+         "compiler/lib/src/main/scala/codegen/CppWriter/TopologyCppWriter/TopConstants.scala",
          "compiler/lib/src/main/scala/codegen/CppWriter/TopologyCppWriter/TopHelperFns.scala"]
 
 def run(name, args, cwd, expect=0):
@@ -42,14 +43,14 @@ cpp = run("all-topology-cpp-checks", ["./check-cpp"], top)
 print("C++ check configurations:", cpp.count("variable_flags="), flush=True)
 fixed_sources = {p: (src / p).read_bytes() for p in paths}
 fixed_jar = (bin_dir / "fpp.jar").read_bytes()
-case = top / "check-cpp-dir/config_objects"
+case = top / "check-cpp-dir/Basic"
 try:
     for p in paths:
         (src / p).write_bytes(subprocess.check_output(["git", "show", base + ":" + p], cwd=src))
     run("original-generator-build", sbt + ["assembly"], src / "compiler")
     shutil.copy2(built_jar, bin_dir / "fpp.jar")
     failure = run("original-generator-cpp-regression", ["./check"], case, expect="failure")
-    assert "value" in failure and "error:" in failure
+    assert (" X" in failure or " x" in failure) and "error:" in failure
 finally:
     for p, data in fixed_sources.items():
         (src / p).write_bytes(data)
