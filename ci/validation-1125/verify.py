@@ -5,7 +5,7 @@ root = Path.cwd()
 src = root / "fpp"
 logs = root / "validation-logs"
 logs.mkdir(exist_ok=True)
-base = "60526e35efeeedef584d8f40db0bac8864f98f26"
+base = "695e2a8dc544e3d52aaf612631abe604dcbe36b3"
 paths = ["compiler/lib/src/main/scala/codegen/CppWriter/TopologyCppWriter/TopConfigObjects.scala",
          "compiler/lib/src/main/scala/codegen/CppWriter/TopologyCppWriter/TopConstants.scala",
          "compiler/lib/src/main/scala/codegen/CppWriter/TopologyCppWriter/TopHelperFns.scala"]
