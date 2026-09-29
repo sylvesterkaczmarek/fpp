@@ -43,7 +43,7 @@ cpp = run("all-topology-cpp-checks", ["./check-cpp"], top)
 print("C++ check configurations:", cpp.count("variable_flags="), flush=True)
 fixed_sources = {p: (src / p).read_bytes() for p in paths}
 fixed_jar = (bin_dir / "fpp.jar").read_bytes()
-case = top / "check-cpp-dir/Basic"
+case = top / "check-cpp-dir/basic"
 try:
     for p in paths:
         (src / p).write_bytes(subprocess.check_output(["git", "show", base + ":" + p], cwd=src))
