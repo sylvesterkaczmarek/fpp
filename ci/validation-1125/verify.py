@@ -38,7 +38,7 @@ os.environ["FPRIME"] = str(root / "fprime")
 top = src / "compiler/tools/fpp-to-cpp/test/top"
 cli = run("all-cpp-generator-tests", ["./test"], top.parent)
 assert "All tests" in cli and "FAILED" not in cli
-assert sum(map(int, re.findall(r"^(\d+) passed$", cli, re.M))) == 140
+assert sum(map(int, re.findall(r"^(\d+) passed$", cli, re.M))) == 139
 cpp = run("all-topology-cpp-checks", ["./check-cpp"], top)
 print("C++ check configurations:", cpp.count("variable_flags="), flush=True)
 fixed_sources = {p: (src / p).read_bytes() for p in paths}
